@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function hasRole(role) {
+      return isAuthenticated() && request.auth.token.role == role;
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) || hasRole('admin');
+    }
+
+    match /patients/{patientId} {
+      allow read: if isOwner(patientId) || hasRole('doctor') || hasRole('admin');
+      allow write: if isOwner(patientId) || hasRole('admin');
+    }
+
+    match /doctors/{doctorId} {
+      allow read: if true;
+      allow write: if isOwner(doctorId) || hasRole('admin');
+    }
+
+    match /assessments/{assessmentId} {
+      allow read, create: if isAuthenticated() && (resource == null || resource.data.patientId == request.auth.uid || hasRole('doctor') || hasRole('admin'));
+      allow update, delete: if hasRole('admin');
+    }
+
+    match /predictions/{predictionId} {
+      allow read: if isAuthenticated() && (resource.data.patientId == request.auth.uid || hasRole('doctor') || hasRole('admin'));
+      allow create: if isAuthenticated();
+      allow update, delete: if hasRole('admin');
+    }
+
+    match /appointments/{appointmentId} {
+      allow read: if isAuthenticated() && (resource.data.patientId == request.auth.uid || resource.data.doctorId == request.auth.uid || hasRole('admin'));
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (resource.data.doctorId == request.auth.uid || hasRole('admin') || resource.data.patientId == request.auth.uid);
+      allow delete: if hasRole('admin');
+    }
+
+    match /messages/{messageId} {
+      allow read, create: if isAuthenticated();
+      allow update, delete: if hasRole('admin');
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow write: if isAuthenticated();
+    }
+
+    match /recommendations/{recId} {
+      allow read: if isAuthenticated();
+      allow write: if hasRole('admin');
+    }
+
+    match /reports/{reportId} {
+      allow read: if isAuthenticated() && (resource.data.patientId == request.auth.uid || hasRole('doctor') || hasRole('admin'));
+      allow create, update: if hasRole('doctor') || hasRole('admin');
+    }
+
+    match /audit_logs/{logId} {
+      allow read, write: if hasRole('admin');
+    }
+  }
+}
