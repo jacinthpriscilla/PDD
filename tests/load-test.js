@@ -146,6 +146,35 @@ waitForServer(healthUrl, (err) => {
     console.log(`Errors / Non-2xx Responses: ${result.errors + result.non2xx}`);
     console.log('==================================================');
 
+    const fs = require('fs');
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      try {
+        const summaryMarkdown = `
+### 📊 Baseline Load Test Results
+
+| Metric | Value |
+| :--- | :--- |
+| **Total Requests Sent** | ${result.requests.sent} |
+| **Average RPS** | ${result.requests.average.toFixed(2)} req/sec |
+| **Average Latency** | ${result.latency.average} ms |
+| **Min Latency** | ${result.latency.min} ms |
+| **Max Latency** | ${result.latency.max} ms |
+| **P50 (Median) Latency** | ${result.latency.p50} ms |
+| **P99 Latency** | ${result.latency.p99} ms |
+| **Errors / Non-2xx Responses** | ${result.errors + result.non2xx} |
+
+#### Latency Percentiles
+- **50% (P50):** ${result.latency.p50} ms
+- **97.5% (P97.5):** ${result.latency.p97_5} ms
+- **99% (P99):** ${result.latency.p99} ms
+`;
+        fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summaryMarkdown);
+        console.log('GitHub Action step summary written successfully.');
+      } catch (sumErr) {
+        console.error('Failed to write GitHub Action step summary:', sumErr);
+      }
+    }
+
     cleanup();
     process.exit(0);
   });
