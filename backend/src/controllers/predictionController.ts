@@ -15,6 +15,10 @@ export const submitAssessment = async (req: AuthRequest, res: Response) => {
       return res.status(400).json({ success: false, message: 'Valid 7-step periodontal risk assessment payload is required.' });
     }
 
+    if (answers.age < 1 || answers.age > 120) {
+      return res.status(400).json({ success: false, message: 'Age must be between 1 and 120.' });
+    }
+
     const patientId = req.user?.id || 'pat_anon';
     const patientName = req.user?.name || 'Patient';
     const patientEmail = req.user?.email || 'patient@periorisk.com';

@@ -1,0 +1,16 @@
+{
+  "name": "periorisk-validation-tests",
+  "version": "1.0.0",
+  "description": "Form input field validation verification suite for PerioRiskScore API and UI",
+  "main": "tests/validation-tests.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node tests/validation-tests.js",
+    "generate-excel": "node generate-excel.js",
+    "test:e2e": "node tests/validation-tests.js && node generate-excel.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "axios": "^1.6.7"
+  }
+}
