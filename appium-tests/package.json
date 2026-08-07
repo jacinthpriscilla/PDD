@@ -1,0 +1,16 @@
+{
+  "name": "periorisk-appium-tests",
+  "version": "1.0.0",
+  "description": "E2E testing suite for PerioRiskScore mobile app using Appium",
+  "main": "tests/app-tests.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node tests/app-tests.js",
+    "generate-excel": "node generate-excel.js",
+    "test:e2e": "node tests/app-tests.js && node generate-excel.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "webdriverio": "^8.32.0"
+  }
+}
