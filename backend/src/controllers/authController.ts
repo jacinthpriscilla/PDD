@@ -5,7 +5,22 @@ import { UserRole } from '../../../shared/src';
 const JWT_SECRET = process.env.JWT_SECRET || 'periorisk_super_secret_jwt_key_2026_production';
 
 // Dynamic user database store
-export const usersStore: Record<string, any> = {};
+export const usersStore: Record<string, any> = {
+  "patient_test": {
+    id: "patient_test",
+    email: "test_patient@example.com",
+    password: "password123",
+    name: "Test Patient",
+    role: "patient",
+    phone: "1234567890",
+    isEmailVerified: true,
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    age: 35,
+    gender: "male"
+  }
+};
 
 export const register = async (req: Request, res: Response) => {
   try {

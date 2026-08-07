@@ -1,0 +1,16 @@
+{
+  "name": "periorisk-selenium-tests",
+  "version": "1.0.0",
+  "description": "E2E testing suite for PerioRiskScore using Selenium",
+  "main": "tests/login-tests.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node tests/login-tests.js",
+    "generate-excel": "node generate-excel.js",
+    "test:e2e": "node run-e2e.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "selenium-webdriver": "^4.18.0"
+  }
+}
