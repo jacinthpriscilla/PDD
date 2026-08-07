@@ -5,12 +5,13 @@
   "main": "tests/app-tests.js",
   "type": "commonjs",
   "scripts": {
-    "test": "node tests/app-tests.js",
+    "test": "node tests/run-appium-300.js",
     "generate-excel": "node generate-excel.js",
-    "test:e2e": "node tests/app-tests.js && node generate-excel.js"
+    "test:e2e": "node tests/run-appium-300.js"
   },
   "dependencies": {
     "exceljs": "^4.4.0",
-    "webdriverio": "^8.32.0"
+    "webdriverio": "^8.32.0",
+    "axios": "^1.6.7"
   }
 }

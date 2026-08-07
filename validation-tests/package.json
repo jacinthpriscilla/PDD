@@ -5,9 +5,9 @@
   "main": "tests/validation-tests.js",
   "type": "commonjs",
   "scripts": {
-    "test": "node tests/validation-tests.js",
+    "test": "node tests/run-validation-300.js",
     "generate-excel": "node generate-excel.js",
-    "test:e2e": "node tests/validation-tests.js && node generate-excel.js"
+    "test:e2e": "node tests/run-validation-300.js"
   },
   "dependencies": {
     "exceljs": "^4.4.0",

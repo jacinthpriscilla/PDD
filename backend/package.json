@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest",
-    "test:load": "node ../tests/load-test.js"
+    "test:load": "node ../tests/run-load-300.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

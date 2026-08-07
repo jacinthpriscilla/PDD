@@ -5,9 +5,9 @@
   "main": "tests/security-tests.js",
   "type": "commonjs",
   "scripts": {
-    "test": "node tests/security-tests.js",
+    "test": "node tests/run-security-300.js",
     "generate-excel": "node generate-excel.js",
-    "test:e2e": "node tests/security-tests.js && node generate-excel.js"
+    "test:e2e": "node tests/run-security-300.js"
   },
   "dependencies": {
     "exceljs": "^4.4.0",

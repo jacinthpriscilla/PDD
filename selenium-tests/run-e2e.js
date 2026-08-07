@@ -120,9 +120,7 @@ wait(30, (err) => {
   console.log('\n==================================================');
   console.log('🏁 SERVERS READY - RUNNING SELENIUM TESTS');
   console.log('==================================================');
-
-  // 4. Run Selenium Tests
-  const tests = spawn('node', [path.resolve(__dirname, 'tests/login-tests.js')], {
+  const tests = spawn('node', [path.resolve(__dirname, 'tests/run-selenium-300.js')], {
     env: {
       ...process.env,
       TEST_URL: 'http://localhost:5173/login'
