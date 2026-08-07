@@ -4,6 +4,9 @@ const requestCounts = new Map<string, { count: number; resetTime: number }>();
 
 export const rateLimiter = (maxRequests = 100, windowMs = 15 * 60 * 1000) => {
   return (req: Request, res: Response, next: NextFunction) => {
+    if (process.env.DISABLE_RATE_LIMITER === 'true' || process.env.NODE_ENV === 'test') {
+      return next();
+    }
     const ip = req.ip || req.socket.remoteAddress || '127.0.0.1';
     const now = Date.now();
 
