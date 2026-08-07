@@ -36,3 +36,10 @@ jobs:
       run: |
         cd backend
         npm run test:load
+
+    - name: Upload Excel Load Test Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: load_test_report
+        path: load_test_report.xlsx
