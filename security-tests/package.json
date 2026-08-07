@@ -1,0 +1,16 @@
+{
+  "name": "periorisk-security-tests",
+  "version": "1.0.0",
+  "description": "Vulnerability and security verification suite for PerioRiskScore API and Frontend",
+  "main": "tests/security-tests.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node tests/security-tests.js",
+    "generate-excel": "node generate-excel.js",
+    "test:e2e": "node tests/security-tests.js && node generate-excel.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "axios": "^1.6.7"
+  }
+}
